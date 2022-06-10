@@ -1,5 +1,30 @@
+//variable making
+let computerSelection;
+let playerSelection;
+let computerScore = 0;
+let playerScore = 0;
 const pick = ['rock', 'paper', 'scissors'];
+let buttons = document.querySelectorAll(".button");
+const body = document.querySelector("body");
+const main = document.querySelector("main");
+const endAlrt = document.querySelector("#end-alert");
+const endDesc = document.querySelector("#end-desc");
+const returnMainBtn = document.querySelector("#retry-btn");
+// const desc = document.querySelector("#desc3");
+const container = document.querySelector("#results-container");
 
+// body.addEventListener("click", skipAnime());
+// body.addEventListener("keydown", skipAnime());
+buttons.forEach((button) => {
+   button.addEventListener("click", () => {
+     const img = button.querySelector("img");
+     playerSelection = img.alt.toLowerCase();
+      playRound(playerSelection, computerSelection);
+      if (playerScore === 5 || computerScore === 5) {
+       declareWinner();
+      }
+   });
+});
 //function for random computer pick
 function computerPlay() {
    return pick[~~(Math.random * pick.length)];
@@ -41,6 +66,9 @@ else if (computerScore === 2 || computerScore === 4) {
    } 
 }
 }
+
+
+//function for results
 function displayResults(str) {
    container.animate([{ opacity: 0 }, { opacity: 1 }], {
      duration: 300,
@@ -51,7 +79,7 @@ function displayResults(str) {
    });
    container.textContent = str;
  }
- 
+ //function for winning logic
  function declareWinner() {
    rplContent();
    if (playerScore > computerScore) {
@@ -62,36 +90,30 @@ function displayResults(str) {
      returnMainBtn.innerText = "Try Again?";
    }
    fadeIn();
- 
    let endDescSpan = endDesc.querySelectorAll("span");
    endDescSpan = Array.from(endDescSpan);
  
    endDescSpan[endDescSpan.length - 1].ontransitionend = () => {
      returnMainBtn.classList.add("fade-in");
-     /*returnMainBtn.animate([{ opacity: 0 }, { opacity: 1 }], {
-       duration: 00,
-       fill: "forwards",
-       iterations: 1,
-       delay: 0,
-       easing: "ease-in",
-     });*/
    };
  }
  
  function rplContent() {
    main.classList.add("disappear");
    endAlrt.classList.remove("disappear");
-   desc.classList.remove("animate");
+   // desc.classList.remove("animate");
    endDesc.classList.add("animate");
  
    returnMainBtn.addEventListener("click", () => {
      main.classList.remove("disappear");
      endAlrt.classList.add("disappear");
-     desc.classList.add("animate");
+   //   desc.classList.add("animate");
      returnMainBtn.classList.remove("fade-in");
      resetGame();
    });
  }
+
+ //restart game
 function resetGame() {
    fadeIn();
    container.textContent = "";
@@ -127,3 +149,4 @@ function keepPlayerScore() {
  
    computerScoreBox.textContent = computerScore;
  }
+ 
