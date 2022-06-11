@@ -1,4 +1,4 @@
-//variable making
+// variable making
 let computerSelection;
 let playerSelection;
 let computerScore = 0;
@@ -149,4 +149,3 @@ function keepPlayerScore() {
  
    computerScoreBox.textContent = computerScore;
  }
- 
